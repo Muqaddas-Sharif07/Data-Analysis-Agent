@@ -25,6 +25,7 @@ if uploaded_file and api_key:
         llm,
         df,
         verbose=False,
+        agent_type="zero-shot-react-description",
         allow_dangerous_code=True,
         handle_parsing_errors=True 
     )
