@@ -16,21 +16,21 @@ uploaded_file = st.sidebar.file_uploader("Upload CSV file", type=["csv"])
 
 # Code tabhi chalega jab File AUR API Key dono mojud hon
 if uploaded_file is not None and api_key:
-    # 1. Read CSV
+# 1. Read CSV
     df = pd.read_csv(uploaded_file)
 
-    # 2. Data Preview
+# 2. Data Preview
     st.subheader("Data Preview")
     st.dataframe(df.head())
 import os
 
-    # Active key determine karein
-    active_key = api_key.strip() if (api_key and api_key.strip()) else st.secrets.get("GROQ_API_KEY", "")
+# Active key determine karein
+active_key = api_key.strip() if (api_key and api_key.strip()) else st.secrets.get("GROQ_API_KEY", "")
     
-    # Environment variable me force-set karein
-    os.environ["GROQ_API_KEY"] = active_key
+# Environment variable me force-set karein
+os.environ["GROQ_API_KEY"] = active_key
 
-    # LLM Initialize karein
+# LLM Initialize karein
     llm = ChatGroq(
         model_name="llama-3.3-70b-versatile",
         groq_api_key=active_key
@@ -46,7 +46,7 @@ import os
     )
     
 
-  # 4. Chat Interface
+# 4. Chat Interface
     st.subheader("Ask Questions About Your Data")
     user_query = st.text_input("Type your question here:")
 
