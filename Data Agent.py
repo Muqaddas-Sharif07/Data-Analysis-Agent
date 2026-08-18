@@ -24,9 +24,12 @@ if uploaded_file is not None and api_key:
     st.dataframe(df.head())
 
     # 3. Initialize LLM & Agent
+    # Active key automatically sidebar ya st.secrets se key pick kar legi
+    active_key = api_key.strip() if api_key else st.secrets.get("GROQ_API_KEY", "")
+
     llm = ChatGroq(
-        model_name="llama-3.1-8b-instant", 
-       groq_api_key=api_key.strip()
+        model_name="llama-3.1-8b-instant",
+        groq_api_key=active_key
     )
 
     agent = create_pandas_dataframe_agent(
