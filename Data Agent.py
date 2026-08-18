@@ -34,7 +34,7 @@ agent = create_pandas_dataframe_agent(
 st.subheader("Ask Questions About Your Data")
 user_query = st.text_input("Type your question here:")
 
-    if st.button("Analyze"):
+if st.button("Analyze"):
         if user_query:
             with st.spinner("Analyzing data..."):
                 try:
