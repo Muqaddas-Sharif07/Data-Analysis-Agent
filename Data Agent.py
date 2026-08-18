@@ -67,6 +67,7 @@ def analyze_data(df, query, api_key):
     
     Write ONLY a valid executable Python expression or statement using pandas to calculate/get the answer (the dataframe is named `df`).
     Do not print, just write the expression that returns the output (e.g., `df.describe()` or `df.groupby('col').mean()`).
+    DO NOT generate any plotting code like .plot() or matplotlib code. Just return data.
     Return ONLY the code block enclosed in ```python ``` without any extra text or explanation.
     """
 
