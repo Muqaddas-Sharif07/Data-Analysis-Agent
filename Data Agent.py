@@ -31,7 +31,7 @@ active_key = api_key.strip() if (api_key and api_key.strip()) else st.secrets.ge
 os.environ["GROQ_API_KEY"] = active_key
 
 # LLM Initialize karein
-    llm = ChatGroq(
+llm = ChatGroq(
         model_name="llama-3.3-70b-versatile",
         groq_api_key=active_key
     )
