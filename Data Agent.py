@@ -47,8 +47,8 @@ agent = create_pandas_dataframe_agent(
     
 
 # 4. Chat Interface
-    st.subheader("Ask Questions About Your Data")
-    user_query = st.text_input("Type your question here:")
+st.subheader("Ask Questions About Your Data")
+user_query = st.text_input("Type your question here:")
 
     if st.button("Analyze Data"):
         if user_query:
