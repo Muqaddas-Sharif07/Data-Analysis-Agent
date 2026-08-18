@@ -36,7 +36,7 @@ llm = ChatGroq(
         groq_api_key=active_key
     )
 
-    agent = create_pandas_dataframe_agent(
+agent = create_pandas_dataframe_agent(
         llm,
         df,
         verbose=False,
