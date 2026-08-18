@@ -11,53 +11,38 @@ st.write("Upload any CSV file and ask natural language questions about your data
 # Sidebar for API Key & File Upload
 st.sidebar.header("Configuration")
 api_key = st.sidebar.text_input("Enter Groq API Key", type="password")
+# Sidebar File Upload
 uploaded_file = st.sidebar.file_uploader("Upload CSV file", type=["csv"])
 
-if uploaded_file and api_key:
-    # Read CSV
+# Code tabhi chalega jab File AUR API Key dono mojud hon
+if uploaded_file is not None and api_key:
+    # 1. Read CSV
     df = pd.read_csv(uploaded_file)
+
+    # 2. Data Preview
     st.subheader("Data Preview")
     st.dataframe(df.head())
 
-    # Initialize LLM & Agent
-llm = ChatGroq(model_name="llama-3-70b-8192", api_key=api_key)
-agent = create_pandas_dataframe_agent(
-        llm, 
-        df, 
-        verbose=False, 
-        agent_type="zero-shot-react-description", 
-        allow_dangerous_code=True, 
-        handle_parsing_errors=True
+    # 3. Initialize LLM & Agent
+    llm = ChatGroq(
+        model_name="llama-3-70b-8192", 
+        api_key=api_key
     )
 
-    # Chat Interface
-st.subheader("Ask Questions About Your Data")
-user_query = st.text_input("Type your question here:")
+    agent = create_pandas_dataframe_agent(
+        llm,
+        df,
+        verbose=False,
+        agent_type="zero-shot-react-description",
+        allow_dangerous_code=True,
+        handle_parsing_errors=True,
+    )
 
-if st.button("Analyze"):
-        if user_query:
-            with st.spinner("Analyzing data..."):
-                try:
-                    response = agent.run(user_query)
-                    st.success("Done!")
-                    st.write(response)
-                except Exception as e:
-                    error_msg = str(e)
-                    if "Could not parse LLM output:" in error_msg:
-                        clean_res = error_msg.split("Could not parse LLM output:")[-1]
-                        st.success("Done!")
-                        st.write(clean_res)
-                    else:
-                        st.error(f"Error: {error_msg}")
-        else:
-            st.warning("Please enter a question first!")
+    # 4. Chat Interface
+    st.subheader("Ask Questions About Your Data")
+    user_query = st.text_input("Type your question here:")
 
 elif not api_key:
-    st.info("👈 Please enter your Groq API Key in the sidebar to get started.")
-
-elif not uploaded_file:
-    st.info("👈 Please upload a CSV file in the sidebar.")
-   
-           
-
-     
+    st.warning("Please enter your Groq API Key in the sidebar.")
+else:
+    st.info("Please upload a CSV file from the sidebar to get started.")
