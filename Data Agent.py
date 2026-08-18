@@ -25,7 +25,7 @@ if uploaded_file is not None and api_key:
 
     # 3. Initialize LLM & Agent
     llm = ChatGroq(
-        model_name="llama-3-70b-8192", 
+        model_name="llama-3-70b-versatile", 
         api_key=api_key
     )
 
