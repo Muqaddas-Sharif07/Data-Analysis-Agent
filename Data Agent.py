@@ -31,13 +31,13 @@ if uploaded_file and api_key:
     )
 
     # Chat Interface
-                try:
     st.subheader("Ask Questions About Your Data")
     user_query = st.text_input("Type your question here:")
 
     if st.button("Analyze"):
         if user_query:
             with st.spinner("Analyzing data..."):
+                try:
                     response = agent.run(user_query)
                     st.success("Done!")
                     st.write(response)
@@ -57,5 +57,7 @@ elif not api_key:
 
 elif not uploaded_file:
     st.info("👈 Please upload a CSV file in the sidebar.")
-  
+   
+           
+
      
