@@ -34,15 +34,24 @@ if uploaded_file and api_key:
     st.subheader("Ask Questions About Your Data")
     user_query = st.text_input("Type your question here:")
 
-    if st.button("Analyze"):
-        if user_query:
-            with st.spinner("Analyzing data..."):
-                response = agent.invoke({"input": user_query})
+  if st.button("Analyze"):
+    if user_query:
+        with st.spinner("Analyzing data..."):
+            try:
+                response = agent.run(user_query)
                 st.success("Done!")
-                st.write("**Answer:**")
-                st.write(response["output"])
-        else:
-            st.warning("Please enter a question first!")
+                st.write(response)
+            except Exception as e:
+                # Agar output Parsing Error bhi aye toh response print karwa de
+                error_msg = str(e)
+                if "Could not parse LLM output:" in error_msg:
+                    clean_res = error_msg.split("Could not parse LLM output:")[-1]
+                    st.success("Done!")
+                    st.write(clean_res)
+                else:
+                    st.error(f"Error: {error_msg}")
+    else:
+        st.warning("Please enter a question first!")
 
 elif not api_key:
     st.info("👈 Please enter your Groq API Key in the sidebar to get started.")
