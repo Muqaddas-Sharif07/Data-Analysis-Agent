@@ -5,3 +5,4 @@ langchain-experimental
 pandas
 openpyxl
 python-dotenv
+tabulate
