@@ -38,9 +38,17 @@ if uploaded_file is not None and api_key:
         handle_parsing_errors=True,
     )
 
-    # 4. Chat Interface
+  # 4. Chat Interface
     st.subheader("Ask Questions About Your Data")
     user_query = st.text_input("Type your question here:")
+
+    if st.button("Analyze Data"):
+        if user_query:
+            with st.spinner("Analyzing..."):
+                response = agent.invoke(user_query)
+                st.write(response["output"])
+        else:
+            st.warning("Please enter a question first.")
 
 elif not api_key:
     st.warning("Please enter your Groq API Key in the sidebar.")
