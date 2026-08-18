@@ -22,7 +22,7 @@ if uploaded_file is not None and api_key:
 # 2. Data Preview
     st.subheader("Data Preview")
     st.dataframe(df.head())
-import os
+    import os
     
     # Active key determine karein
     active_key = api_key.strip() if (api_key and api_key.strip()) else st.secrets.get("GROQ_API_KEY", "")
