@@ -20,7 +20,7 @@ if uploaded_file and api_key:
     st.dataframe(df.head())
 
     # Initialize LLM & Agent
-    llm = ChatGroq(model_name="llama-3.3-70b-specdec", api_key=api_key)
+   llm = ChatGroq(model_name="llama-3.1-8b-instant", api_key=api_key)
     agent = create_pandas_dataframe_agent(
         llm, 
         df, 
