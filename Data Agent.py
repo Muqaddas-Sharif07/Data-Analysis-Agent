@@ -23,20 +23,20 @@ if uploaded_file is not None and api_key:
     st.subheader("Data Preview")
     st.dataframe(df.head())
 import os
-
-# Active key determine karein
-active_key = api_key.strip() if (api_key and api_key.strip()) else st.secrets.get("GROQ_API_KEY", "")
     
-# Environment variable me force-set karein
-os.environ["GROQ_API_KEY"] = active_key
-
-# LLM Initialize karein
-llm = ChatGroq(
-        model_name="llama-3.3-70b-versatile",
-        groq_api_key=active_key
-    )
-
-agent = create_pandas_dataframe_agent(
+    # Active key determine karein
+    active_key = api_key.strip() if (api_key and api_key.strip()) else st.secrets.get("GROQ_API_KEY", "")
+        
+    # Environment variable me force-set karein
+    os.environ["GROQ_API_KEY"] = active_key
+    
+    # LLM Initialize karein
+    llm = ChatGroq(
+            model_name="llama-3.3-70b-versatile",
+            groq_api_key=active_key
+        )
+    
+    agent = create_pandas_dataframe_agent(
         llm,
         df,
         verbose=False,
