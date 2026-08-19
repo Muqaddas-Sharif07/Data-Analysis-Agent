@@ -7,11 +7,17 @@ from langchain_groq import ChatGroq
 st.set_page_config(page_title="Data Analysis Agent", layout="wide")
 st.title("📊 AI Data Analysis Agent")
 
-# Sidebar - Settings & File Upload
-st.sidebar.header("Configuration")
-api_key = st.sidebar.text_input("Enter Groq API Key:", type="password")
+# Streamlit Secrets se API key automatically read karein
+api_key = st.secrets.get("GROQ_API_KEY")
+
+# Sidebar - Sirf File Uploader reh jayega
 uploaded_file = st.sidebar.file_uploader("Upload CSV File", type=["csv"])
 
+# Safe check agar API key missing ho
+if not api_key:
+    st.error(
+        "API Key missing! Please set 'GROQ_API_KEY' in Streamlit Secrets."
+    )
 # Data Loading
 df = None
 if uploaded_file is not None:
